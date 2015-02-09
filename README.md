@@ -1,4 +1,6 @@
-# Cl-Clipper
+# Clipper
+
+Clipper is file attachment library for Integral.
 
 ## Usage
 

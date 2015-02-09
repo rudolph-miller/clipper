@@ -1,6 +1,6 @@
 # Clipper
 
-Clipper is file attachment library for Integral.
+Clipper is file attachment library for [Integral](https://github.com/fukamachi/integral).
 
 ## Usage
 
@@ -44,7 +44,9 @@ Clipper is file attachment library for Integral.
 => "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/1/lisplogo_alien_256.png"
 ```
 
-## Installation
+## See Also
+
+- [Integral](https://github.com/fukamachi/integral) - Object relational mapper for Common Lisp
 
 ## Author
 

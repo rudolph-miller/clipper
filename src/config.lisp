@@ -44,6 +44,6 @@
   (setf *clipper-config* (apply #'make-clipper-config initargs))))
 
 (defun find-slot-by-the-name (class name)
-   (find name (c2mop:class-direct-slots class)
+   (find name (mapcar #'c2mop:slot-definition-name (c2mop:class-direct-slots class))
          :test #'equal
-         :key #'(lambda (slot) (symbol-name (c2mop:slot-definition-name slot)))))
+         :key #'symbol-name))

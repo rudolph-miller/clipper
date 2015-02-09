@@ -6,9 +6,9 @@
   (:import-from :clipper.format
                 :retrieve-url)
   (:import-from :clipper.database
-                :create-picture-by-url)
+                :create-picture)
   (:export :setup-clipper
-             :create-picture-by-url
+             :create-picture
              :image-url))
 (in-package :clipper)
 

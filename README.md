@@ -34,7 +34,7 @@
                :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
                :s3-bucket-name "clipper-sample"
                :clpper-class (find-class 'picture)
-               :format ":ID/medium.:EXTENSION")
+               :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((picture (create-picture :url "http://www.lisperati.com/lisplogo_alien_256.png")))
   (image-url picture))

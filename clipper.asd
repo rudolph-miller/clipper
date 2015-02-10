@@ -25,12 +25,13 @@
                :zs3)
   :components ((:module "src"
                 :components
-                ((:file "clipper" :depends-on ("database" "s3" "local" "config" "format"))
-                 (:file "database" :depends-on ("config"))
+                ((:file "clipper" :depends-on ("database" "s3" "local" "config" "format" "error"))
+                 (:file "database" :depends-on ("config" "error"))
                  (:file "s3" :depends-on ("database" "config" "format"))
                  (:file "local" :depends-on ("database" "config" "format"))
                  (:file "config")
-                 (:file "format" :depends-on ("config" "database")))))
+                 (:file "format" :depends-on ("config" "database"))
+                 (:file "error"))))
   :description ""
   :long-description
   #.(with-open-file (stream (merge-pathnames

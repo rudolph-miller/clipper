@@ -29,7 +29,7 @@
 (defun setup-clipper (&rest initargs &key store-type aws-access-key aws-secret-key s3-endpoint
                                        s3-bucket-name clipper-class id-slot url-slot image-file-name-slot
                                        image-content-type-slot image-file-size-slot format)
-  (declare (ignore store-type id-slot url-slot image-file-name-slot image-content-type-slot image-file-size-slot format))
+  (declare (ignore id-slot url-slot image-file-name-slot image-content-type-slot image-file-size-slot format))
   (flet ((fill-slot (class slot-name key)
            (unless (getf initargs key) (setf initargs (append (list key (find-slot-by-the-name class slot-name))
                                                               initargs)))))
@@ -39,7 +39,7 @@
       (fill-slot clipper-class "IMAGE-FILE-NAME" :image-file-name-slot)
       (fill-slot clipper-class "IMAGE-CONTENT-TYPE" :image-content-type-slot)
       (fill-slot clipper-class "IMAGE-FILE-SIZE" :image-file-size-slot))
-    (when (and aws-access-key aws-secret-key s3-endpoint s3-bucket-name)
+    (when (and (not store-type) aws-access-key aws-secret-key s3-endpoint s3-bucket-name)
       (setf initargs (append (list :store-type :s3) initargs)))
   (setf *clipper-config* (apply #'make-clipper-config initargs))))
 

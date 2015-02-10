@@ -6,10 +6,10 @@
   (:import-from :clipper.format
                 :retrieve-url)
   (:import-from :clipper.database
-                :create-picture)
+                :attach-image)
   (:export :setup-clipper
-             :create-picture
-             :image-url))
+           :attach-image
+           :image-url))
 (in-package :clipper)
 
 (defun image-url (object)

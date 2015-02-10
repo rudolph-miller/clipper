@@ -9,45 +9,45 @@
 (syntax:use-syntax :annot)
 
 (defvar *format-keys*
-  (list :ID #'picture-id
-        :URL #'picture-url
-        :FILE-NAME #'picture-image-file-name-without-extension
-        :EXTENSION #'picture-extension))
+  (list :ID #'clip-id
+        :URL #'clip-url
+        :FILE-NAME #'clip-image-file-name-without-extension
+        :EXTENSION #'clip-extension))
 
 @export
-(defun store-format (picture)
+(defun store-format (object)
   (ecase (clipper-config-store-type *clipper-config*)
-    (:local (local-store-format picture))
-    (:s3 (s3-store-format picture))))
+    (:local (local-store-format object))
+    (:s3 (s3-store-format object))))
 
-(defun local-store-format (picture)
-  (declare (ignore picture))) ;; TODO: local format
+(defun local-store-format (object)
+  (declare (ignore object))) ;; TODO: local format
 
-(defun s3-store-format (picture)
-  (replace-format picture))
+(defun s3-store-format (object)
+  (replace-format object))
 
-(defun replace-format (picture)
+(defun replace-format (object)
   (loop with format = (clipper-config-format *clipper-config*)
         for (key fn) on *format-keys* by #'cddr
         do (setf format
                  (ppcre:regex-replace-all (format nil "~s" key)
                                           format
-                                          (format nil "~a" (funcall fn picture))))
+                                          (format nil "~a" (funcall fn object))))
         finally (return format)))
 
 @export
-(defun retrieve-url (picture)
+(defun retrieve-url (object)
   (ecase (clipper-config-store-type *clipper-config*)
-    (:local (local-retrieve-url picture))
-    (:s3 (s3-retrieve-url picture))))
+    (:local (local-retrieve-url object))
+    (:s3 (s3-retrieve-url object))))
 
-(defun local-retrieve-url (picture)
-  (declare (ignore picture))) ;; TODO: local url
+(defun local-retrieve-url (object)
+  (declare (ignore object))) ;; TODO: local url
 
-(defun s3-retrieve-url (picture)
+(defun s3-retrieve-url (object)
   (let ((uri (quri.uri.http:make-uri-https
               :host (clipper-config-s3-endpoint *clipper-config*)
               :path (concatenate 'string (format nil "/~a/" (clipper-config-s3-bucket-name *clipper-config*))
-                                 (store-format picture)))))
+                                 (store-format object)))))
     (quri:render-uri uri)))
 

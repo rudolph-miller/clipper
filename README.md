@@ -38,7 +38,8 @@ Clipper is file attachment library for [Integral](https://github.com/fukamachi/i
                :clpper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
-(let ((picture (create-picture :url "http://www.lisperati.com/lisplogo_alien_256.png")))
+(let ((picture (create-dao 'picture)))
+  (save-dao (attach-image picture "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url picture))
 
 => "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/1/lisplogo_alien_256.png"

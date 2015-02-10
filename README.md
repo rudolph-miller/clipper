@@ -1,6 +1,6 @@
 # Clipper
 
-Clipper is file attachment library for [Integral](https://github.com/fukamachi/integral).
+Clipper is file attachment library.
 
 ## Usage
 

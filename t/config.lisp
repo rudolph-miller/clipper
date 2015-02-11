@@ -19,6 +19,26 @@
 (subtest "store-type :s3"
   (is-error (setup-clipper :store-type :s3)
             '<clipper-incomplete-s3-config>)
+  (is-error (setup-clipper :store-type :s3
+                           :aws-secret-key "sample-secret-key"
+                           :s3-endpoint "sample-endpoint"
+                           :s3-bucket-name "sample-bucket-name")
+            '<clipper-incomplete-s3-config>)
+  (is-error (setup-clipper :store-type :s3
+                           :aws-access-key "sample-access-key"
+                           :s3-endpoint "sample-endpoint"
+                           :s3-bucket-name "sample-bucket-name")
+            '<clipper-incomplete-s3-config>)
+  (is-error (setup-clipper :store-type :s3
+                           :aws-access-key "sample-access-key"
+                           :aws-secret-key "sample-secret-key"
+                           :s3-bucket-name "sample-bucket-name")
+            '<clipper-incomplete-s3-config>)
+  (is-error (setup-clipper :store-type :s3
+                           :aws-access-key "sample-access-key"
+                           :aws-secret-key "sample-secret-key"
+                           :s3-endpoint "sample-endpoint")
+            '<clipper-incomplete-s3-config>)
   (ok (setup-clipper :store-type :s3
                      :aws-access-key "sample-access-key"
                      :aws-secret-key "sample-secret-key"

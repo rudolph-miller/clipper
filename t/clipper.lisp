@@ -1,14 +1,10 @@
 (in-package :cl-user)
-(defpackage cl-clipper-test
+(defpackage clipper-test
   (:use :cl
-        :cl-clipper
+        :clipper
         :prove))
-(in-package :cl-clipper-test)
-
-;; NOTE: To run this test file, execute `(asdf:test-system :cl-clipper)' in your Lisp.
+(in-package :clipper-test)
 
 (plan nil)
-
-;; blah blah blah.
 
 (finalize)

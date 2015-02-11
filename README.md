@@ -1,6 +1,6 @@
 # Clipper
 
-Clipper is file attachment library.
+Clipper is a file attachment library.
 
 ## Usage
 

@@ -22,17 +22,18 @@
                :quri
                :split-sequence
                :alexandria
-               :zs3)
+               :zs3
+               :cl-fad)
   :components ((:module "src"
                 :components
                 ((:file "clipper" :depends-on ("database" "s3" "local" "config" "format" "error"))
                  (:file "database" :depends-on ("config" "error"))
-                 (:file "s3" :depends-on ("database" "config" "format"))
-                 (:file "local" :depends-on ("database" "config" "format"))
+                 (:file "s3" :depends-on ("database" "format"))
+                 (:file "local" :depends-on ("database" "format"))
                  (:file "config" :depends-on ("error"))
-                 (:file "format" :depends-on ("config" "database"))
+                 (:file "format" :depends-on ("database"))
                  (:file "error"))))
-  :description "Clipper is file attachment library."
+  :description "File attachment library."
   :long-description
   #.(with-open-file (stream (merge-pathnames
                              #p"README.markdown"

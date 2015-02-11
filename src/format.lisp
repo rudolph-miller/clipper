@@ -21,7 +21,7 @@
     (:s3 (s3-store-format object))))
 
 (defun local-store-format (object)
-  (declare (ignore object))) ;; TODO: local format
+  (replace-format object))
 
 (defun s3-store-format (object)
   (replace-format object))
@@ -42,7 +42,7 @@
     (:s3 (s3-retrieve-url object))))
 
 (defun local-retrieve-url (object)
-  (declare (ignore object))) ;; TODO: local url
+  (format nil "~a~a" (clipper-config-image-directory *clipper-config*) (store-format object)))
 
 (defun s3-retrieve-url (object)
   (let ((uri (quri.uri.http:make-uri-https

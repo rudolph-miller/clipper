@@ -18,6 +18,7 @@
                 ((:file "init")
                  (:test-file "clipper")
                  (:test-file "config")
+                 (:test-file "format")
                  (:test-file "database"))))
 
   :defsystem-depends-on (:prove-asdf)

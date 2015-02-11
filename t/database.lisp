@@ -8,7 +8,7 @@
         :clipper.database))
 (in-package :clipper-test.database)
 
-(plan nil)
+(plan 11)
 
 (connect-to-testdb)
 

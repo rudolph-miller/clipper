@@ -15,8 +15,10 @@
                :prove)
   :components ((:module "t"
                 :components
-                ((:test-file "clipper")
-                 (:test-file "config"))))
+                ((:file "init")
+                 (:test-file "clipper")
+                 (:test-file "config")
+                 (:test-file "database"))))
 
   :defsystem-depends-on (:prove-asdf)
   :perform (test-op :after (op c)

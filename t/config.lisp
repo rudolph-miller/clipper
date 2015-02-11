@@ -1,14 +1,12 @@
 (in-package :cl-user)
 (defpackage clipper-test.config
   (:use :cl
-        :clipper
-        :clipper.config
         :prove
-        :integral))
+        :integral
+        :clipper-test.init
+        :clipper
+        :clipper.config))
 (in-package :clipper-test.config)
-
-(defvar *clipper-image-directory*
-  (merge-pathnames #P"images" (asdf:system-source-directory :clipper)))
 
 (plan 3)
 

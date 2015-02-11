@@ -29,6 +29,9 @@
   (:metaclass <dao-table-class>)
   (:table-name "pictures"))
 
+(execute-sql "DROP TABLE IF EXISTS pictures")
+(execute-sql (table-definition 'picture))
+
 (setup-clipper :store-type :local
                :image-directory *clipper-image-directory*
                :clipper-class (find-class 'picture))

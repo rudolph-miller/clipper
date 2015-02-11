@@ -15,8 +15,8 @@
 (subtest "store-type :local"
   (is-error (setup-clipper :store-type :local)
             '<clipper-incomplete-local-config>)
-  (ok (setup-clipper :store-type :local :root *clipper-image-directory*))
-  (is (clipper-config-root (setup-clipper :store-type :local :root #P"sample"))
+  (ok (setup-clipper :store-type :local :image-directory *clipper-image-directory*))
+  (is (clipper-config-image-directory (setup-clipper :store-type :local :image-directory #P"sample"))
       #P"sample/"))
 
 (subtest "store-type :s3"
@@ -67,7 +67,7 @@
     (:table-name "pictures"))
 
   (setup-clipper :store-type :local
-                 :root *clipper-image-directory*
+                 :image-directory *clipper-image-directory*
                  :clipper-class (find-class 'picture))
 
   (is (clipper-config-id-slot *clipper-config*) 'id)

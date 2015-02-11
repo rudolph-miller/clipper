@@ -4,11 +4,6 @@ env:
   matrix:
     - LISP=sbcl
     - LISP=ccl
-    - LISP=clisp
-
-matrix:
-  allow_failures:
-    - env: LISP=clisp
 
 install:
   # Install cl-travis

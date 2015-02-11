@@ -7,12 +7,17 @@
         :integral))
 (in-package :clipper-test.config)
 
+(defvar *clipper-image-directory*
+  (merge-pathnames #P"images" (asdf:system-source-directory :clipper)))
+
 (plan 3)
 
 (subtest "store-type :local"
   (is-error (setup-clipper :store-type :local)
             '<clipper-incomplete-local-config>)
-  (ok (setup-clipper :store-type :local :root (asdf:system-source-directory :clipper))))
+  (ok (setup-clipper :store-type :local :root *clipper-image-directory*))
+  (is (clipper-config-root (setup-clipper :store-type :local :root #P"sample"))
+      #P"sample/"))
 
 (subtest "store-type :s3"
   (is-error (setup-clipper :store-type :s3)
@@ -62,7 +67,7 @@
     (:table-name "pictures"))
 
   (setup-clipper :store-type :local
-                 :root (asdf:system-source-directory :clipper)
+                 :root *clipper-image-directory*
                  :clipper-class (find-class 'picture))
 
   (is (clipper-config-id-slot *clipper-config*) 'id)

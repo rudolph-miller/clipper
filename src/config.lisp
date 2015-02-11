@@ -17,7 +17,6 @@
 (defstruct clipper-config
   (store-type)
   (root)
-  (project)
   (relative)
   (aws-access-key)
   (aws-secret-key)
@@ -32,10 +31,10 @@
   (format "/:ID/:FILE-NAME.:EXTENSION"))
 
 @export
-(defun setup-clipper (&rest initargs &key store-type root project relative aws-access-key aws-secret-key
-                                       s3-endpoint s3-bucket-name clipper-class id-slot url-slot image-file-name-slot
+(defun setup-clipper (&rest initargs &key store-type root relative aws-access-key aws-secret-key s3-endpoint
+                                       s3-bucket-name clipper-class id-slot url-slot image-file-name-slot
                                        image-content-type-slot image-file-size-slot format)
-  (declare (ignore relative aws-access-key aws-secret-key s3-endpoint s3-bucket-name id-slot
+  (declare (ignore root relative aws-access-key aws-secret-key s3-endpoint s3-bucket-name id-slot
                    url-slot image-file-name-slot image-content-type-slot image-file-size-slot format))
   (when (not store-type) (error '<clipper-incomplete-config> :slot-list (list :store-type)))
   (flet ((raise-error-if-incomplete (require-slots error)
@@ -46,9 +45,6 @@
              (when (> (length slots) 0)
                (error error :slot-list slots)))))
     (when clipper-class (setf initargs (complete-slot-of-class initargs)))
-    (when (and (eq store-type :local) (null root) project)
-      (setf initargs (append (list :root (asdf:system-source-directory project))
-                             initargs)))
     (ecase store-type
       (:local (raise-error-if-incomplete +local-requrie-list+ '<clipper-incomplete-local-config>))
       (:s3 (raise-error-if-incomplete +s3-require-list+ '<clipper-incomplete-s3-config>)))

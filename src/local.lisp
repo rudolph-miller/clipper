@@ -9,9 +9,18 @@
 (syntax:use-syntax :annot)
 
 (defmethod store-image (object image (type (eql :local)))
-  (with-open-file (out (image-pathname object) :direction :output :if-exists :supersede :external-format :utf8)
-    (loop for byte in object
-          do (write-byte byte out))))
+  (with-open-file (out (ensure-directories-exist (image-pathname object))
+                       :direction :output
+                       :if-does-not-exist :create
+                       :if-exists :supersede
+                       :element-type '(unsigned-byte 8)
+                       :external-format :utf8)
+    (write-image-to-out image out)))
+
+(defun write-image-to-out (image out)
+  (loop for byte across image
+        do (write-byte byte out)
+        finally (return t)))
 
 @export
 (defun image-pathname (object)
@@ -19,4 +28,5 @@
 
 
 (defmethod retrieve-url (object (type (eql :local)))
-  (format nil "~a~a" (clipper-config-image-directory *clipper-config*) (store-format object)))
+  (format nil "~a~a" (clipper-config-prefix *clipper-config*)
+          (enough-namestring (image-pathname object) (clipper-config-relative *clipper-config*))))

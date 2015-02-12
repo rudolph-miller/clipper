@@ -10,7 +10,7 @@
         :clipper.database))
 (in-package :clipper-test.s3)
 
-(plan nil)
+(plan 2)
 
 (connect-to-testdb)
 

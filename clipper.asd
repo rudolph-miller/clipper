@@ -26,10 +26,11 @@
                :cl-fad)
   :components ((:module "src"
                 :components
-                ((:file "clipper" :depends-on ("database" "s3" "local" "config" "format" "error"))
+                ((:file "clipper" :depends-on ("database" "image" "s3" "local" "config" "format" "error"))
                  (:file "database" :depends-on ("config" "error"))
-                 (:file "s3" :depends-on ("database" "format"))
-                 (:file "local" :depends-on ("database" "format"))
+                 (:file "image" :depends-on ("database"))
+                 (:file "s3" :depends-on ("database" "image" "format"))
+                 (:file "local" :depends-on ("database" "image" "format"))
                  (:file "config" :depends-on ("error"))
                  (:file "format" :depends-on ("database"))
                  (:file "error"))))

@@ -14,7 +14,7 @@
                 :*format-keys*
                 :store-format
                 :retrieve-url)
-  (:import-from :clipper.database
+  (:import-from :clipper.image
                 :attach-image)
   (:export :<clipper-invalid-store-type>
            :<clipper-incomplete-config>

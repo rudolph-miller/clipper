@@ -4,6 +4,7 @@
         :clipper.config
         :clipper.format
         :clipper.database
+        :clipper.image
         :zs3))
 (in-package :clipper.s3)
 

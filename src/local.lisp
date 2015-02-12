@@ -3,7 +3,8 @@
   (:use :cl
         :clipper.config
         :clipper.format
-        :clipper.database))
+        :clipper.database
+        :clipper.image))
 (in-package :clipper.local)
 
 (syntax:use-syntax :annot)

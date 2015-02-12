@@ -23,7 +23,8 @@
                :split-sequence
                :alexandria
                :zs3
-               :cl-fad)
+               :cl-fad
+               :cl-gd)
   :components ((:module "src"
                 :components
                 ((:file "clipper" :depends-on ("database" "image" "s3" "local" "config" "format" "error"))

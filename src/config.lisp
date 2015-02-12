@@ -11,6 +11,7 @@
 (defvar *s3-require-list* (list :aws-access-key :aws-secret-key :s3-endpoint :s3-bucket-name))
 (defvar *local-requrie-list* (list :image-directory))
 
+@export
 (defvar *clipper-config* nil)
 
 @export

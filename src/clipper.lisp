@@ -7,7 +7,9 @@
                 :<clipper-incomplete-local-config>
                 :<clipper-incomplete-s3-config>)
   (:import-from :clipper.config
-                :setup-clipper)
+                :*clipper-config*
+                :setup-clipper
+                :clipper-config-store-type)
   (:import-from :clipper.format
                 :retrieve-url)
   (:import-from :clipper.database
@@ -17,9 +19,10 @@
            :<clipper-incomplete-local-config>
            :<clipper-incomplete-s3-config>
            :setup-clipper
+           :*clipper-config*
            :attach-image
            :image-url))
 (in-package :clipper)
 
 (defun image-url (object)
-  (retrieve-url object))
+  (retrieve-url object (clipper-config-store-type *clipper-config*)))

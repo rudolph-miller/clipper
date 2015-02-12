@@ -19,7 +19,9 @@
                  (:test-file "clipper")
                  (:test-file "config")
                  (:test-file "format")
-                 (:test-file "database"))))
+                 (:test-file "database")
+                 (:test-file "local")
+                 (:test-file "s3"))))
 
   :defsystem-depends-on (:prove-asdf)
   :perform (test-op :after (op c)

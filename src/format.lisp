@@ -36,18 +36,4 @@
         finally (return format)))
 
 @export
-(defun retrieve-url (object)
-  (ecase (clipper-config-store-type *clipper-config*)
-    (:local (local-retrieve-url object))
-    (:s3 (s3-retrieve-url object))))
-
-(defun local-retrieve-url (object)
-  (format nil "~a~a" (clipper-config-image-directory *clipper-config*) (store-format object)))
-
-(defun s3-retrieve-url (object)
-  (let ((uri (quri.uri.http:make-uri-https
-              :host (clipper-config-s3-endpoint *clipper-config*)
-              :path (concatenate 'string (format nil "/~a/" (clipper-config-s3-bucket-name *clipper-config*))
-                                 (store-format object)))))
-    (quri:render-uri uri)))
-
+(defgeneric retrieve-url (object type))

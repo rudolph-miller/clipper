@@ -26,3 +26,10 @@
 
 (defmethod store-image (object image (type (eql :s3)))
   (upload image (store-format object)))
+
+(defmethod retrieve-url (object (type (eql :s3)))
+  (let ((uri (quri.uri.http:make-uri-https
+              :host (clipper-config-s3-endpoint *clipper-config*)
+              :path (concatenate 'string (format nil "/~a/" (clipper-config-s3-bucket-name *clipper-config*))
+                                 (store-format object)))))
+    (quri:render-uri uri)))

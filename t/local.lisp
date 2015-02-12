@@ -34,7 +34,7 @@
 (execute-sql "DROP TABLE IF EXISTS pictures")
 (execute-sql (table-definition 'picture))
 
-(let ((pic (create-dao 'picture :image-file-name "lisp-alien.png"
+(let ((object (create-dao 'picture :image-file-name "lisp-alien.png"
                                 :image-content-type "image/png"
                                 :image-file-size 100
                                 :url "http://lisp-alien.org/lisp-alien.png")))
@@ -43,26 +43,29 @@
                  :image-directory *clipper-image-directory*
                  :clipper-class (find-class 'picture)
                  :format ":ID/:FILE-NAME.:EXTENSION")
-  (is (store-format pic)
-      (format nil "~a/~a.~a" (clip-id pic) (clip-image-file-name-without-extension pic) (clip-extension pic)))
-  (is (image-url pic)
+  (is (store-format object)
+      (format nil "~a/~a.~a"
+              (clip-id object)
+              (clip-image-file-name-without-extension object)
+              (clip-extension object)))
+  (is (image-url object)
        (format nil "~a~a/~a.~a"
                (clipper-config-image-directory *clipper-config*)
-               (clip-id pic)
-               (clip-image-file-name-without-extension pic)
-               (clip-extension pic)))
+               (clip-id object)
+               (clip-image-file-name-without-extension object)
+               (clip-extension object)))
 
   (setup-clipper :store-type :local
                  :image-directory *clipper-image-directory*
                  :clipper-class (find-class 'picture)
                  :format ":ID/:FILE-NAME.:EXTENSION"
                  :relative (asdf:system-source-directory :clipper))
-  (is (image-url pic)
+  (is (image-url object)
        (format nil "~a~a/~a.~a"
                (enough-namestring (clipper-config-image-directory *clipper-config*) (clipper-config-relative *clipper-config*))
-               (clip-id pic)
-               (clip-image-file-name-without-extension pic)
-               (clip-extension pic)))
+               (clip-id object)
+               (clip-image-file-name-without-extension object)
+               (clip-extension object)))
 
   (setup-clipper :store-type :local
                  :image-directory *clipper-image-directory*
@@ -70,12 +73,12 @@
                  :format ":ID/:FILE-NAME.:EXTENSION"
                  :relative (asdf:system-source-directory :clipper)
                  :prefix "http://localhost:3000/")
-  (is (image-url pic)
+  (is (image-url object)
        (format nil "~a~a~a/~a.~a"
                (clipper-config-prefix *clipper-config*)
                (enough-namestring (clipper-config-image-directory *clipper-config*) (clipper-config-relative *clipper-config*))
-               (clip-id pic)
-               (clip-image-file-name-without-extension pic)
-               (clip-extension pic))))
+               (clip-id object)
+               (clip-image-file-name-without-extension object)
+               (clip-extension object))))
 
 (finalize)

@@ -10,7 +10,7 @@
         :clipper.config))
 (in-package :clipper-test.format)
 
-(plan 0)
+(plan 4)
 
 (connect-to-testdb)
 
@@ -34,10 +34,36 @@
 (execute-sql "DROP TABLE IF EXISTS pictures")
 (execute-sql (table-definition 'picture))
 
-(let ((pic (create-dao 'picture :image-file-name "lisp-alien.png"
+(let ((object (create-dao 'picture :image-file-name "lisp-alien.png"
                                 :image-content-type "image/png"
                                 :image-file-size 100
                                 :url "http://lisp-alien.org/lisp-alien.png")))
-  (declare (ignore pic)))
+  (setup-clipper :store-type :local
+                 :image-directory *clipper-image-directory*
+                 :clipper-class (find-class 'picture)
+                 :format ":ID")
+  (is (store-format object)
+      (format nil "~a" (clip-id object)))
+
+  (setup-clipper :store-type :local
+                 :image-directory *clipper-image-directory*
+                 :clipper-class (find-class 'picture)
+                 :format ":URL")
+  (is (store-format object)
+      (format nil "~a" (clip-url object)))
+
+  (setup-clipper :store-type :local
+                 :image-directory *clipper-image-directory*
+                 :clipper-class (find-class 'picture)
+                 :format ":FILE-NAME")
+  (is (store-format object)
+      (format nil "~a" (clip-image-file-name-without-extension object)))
+  
+  (setup-clipper :store-type :local
+                 :image-directory *clipper-image-directory*
+                 :clipper-class (find-class 'picture)
+                 :format ":EXTENSION")
+  (is (store-format object)
+      (format nil "~a" (clip-extension object))))
 
 (finalize)

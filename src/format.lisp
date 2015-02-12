@@ -17,17 +17,6 @@
 
 @export
 (defun store-format (object)
-  (ecase (clipper-config-store-type *clipper-config*)
-    (:local (local-store-format object))
-    (:s3 (s3-store-format object))))
-
-(defun local-store-format (object)
-  (replace-format object))
-
-(defun s3-store-format (object)
-  (replace-format object))
-
-(defun replace-format (object)
   (loop with format = (clipper-config-format *clipper-config*)
         for (key fn) on *format-keys* by #'cddr
         do (setf format

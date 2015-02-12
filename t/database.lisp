@@ -36,25 +36,25 @@
                :image-directory *clipper-image-directory*
                :clipper-class (find-class 'picture))
 
-(let ((pic (create-dao 'picture :image-file-name "lisp-alien.png"
+(let ((object (create-dao 'picture :image-file-name "lisp-alien.png"
                                 :image-content-type "image/png"
                                 :image-file-size 100
                                 :url "http://lisp-alien.org/lisp-alien.png")))
-  (is (clip-id pic) (slot-value pic 'id))
-  (is (clip-image-file-name pic) (slot-value pic 'image-file-name))
-  (is (clip-image-content-type pic) (slot-value pic 'image-content-type))
-  (is (clip-image-file-size pic) (slot-value pic 'image-file-size))
-  (is (clip-url pic) (slot-value pic 'url))
-  (is (clip-extension pic) "png")
-  (is (clip-image-file-name-without-extension pic) "lisp-alien")
+  (is (clip-id object) (slot-value object 'id))
+  (is (clip-image-file-name object) (slot-value object 'image-file-name))
+  (is (clip-image-content-type object) (slot-value object 'image-content-type))
+  (is (clip-image-file-size object) (slot-value object 'image-file-size))
+  (is (clip-url object) (slot-value object 'url))
+  (is (clip-extension object) "png")
+  (is (clip-image-file-name-without-extension object) "lisp-alien")
 
-  (setf (clip-image-file-name pic) "other-alien.jpg")
-  (setf (clip-image-content-type pic) "image/jpg")
-  (setf (clip-image-file-size pic) 200)
-  (setf (clip-url pic) "http://lisp-alien.org/other-alien.jpg")
-  (is (clip-image-file-name pic) "other-alien.jpg")
-  (is (clip-image-content-type pic) "image/jpg")
-  (is (clip-image-file-size pic) 200)
-  (is (clip-url pic) "http://lisp-alien.org/other-alien.jpg"))
+  (setf (clip-image-file-name object) "other-alien.jpg")
+  (setf (clip-image-content-type object) "image/jpg")
+  (setf (clip-image-file-size object) 200)
+  (setf (clip-url object) "http://lisp-alien.org/other-alien.jpg")
+  (is (clip-image-file-name object) "other-alien.jpg")
+  (is (clip-image-content-type object) "image/jpg")
+  (is (clip-image-file-size object) 200)
+  (is (clip-url object) "http://lisp-alien.org/other-alien.jpg"))
 
 (finalize)

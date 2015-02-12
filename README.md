@@ -33,18 +33,195 @@ Clipper is a file attachment library.
   (:metaclass <dao-table-class>)
   (:table-name "pictures"))
 
-(setup-clipper :aws-access-key (asdf::getenv "AWS_ACCESS_KEY")
+(setup-clipper :store-type :s3
+               :aws-access-key (asdf::getenv "AWS_ACCESS_KEY")
                :aws-secret-key (asdf::getenv "AWS_SECRET_KEY")
                :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
                :s3-bucket-name "clipper-sample"
                :clpper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
-(let ((picture (create-dao 'picture)))
-  (save-dao (attach-image picture "http://www.lisperati.com/lisplogo_alien_256.png"))
-  (image-url picture))
+(let ((object (create-dao 'picture)))
+  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (image-url object))
 
 => "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/1/lisplogo_alien_256.png"
+
+(setup-clipper :store-type :local
+               :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
+               :relative #P"/home/cl-user/common-lisp/clipper/"
+               :prefix "http://localhost:3000/"
+               :clpper-class (find-class 'picture)
+               :format ":ID/FILE-NAME.:EXTENSION")
+
+(let ((object (create-dao 'picture)))
+  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (image-url object))
+
+=> "http://localhsot:3000/images/2/lisplogo_alien_256.png"
+```
+
+## setup-clipper
+
+```Lisp
+(setup-clipper :store-type :local)
+```
+
+or
+
+```Lisp
+(setup-clipper :store-type :s3)
+```
+
+or you can create `:store-type` other than `:local` or `:s3`.
+
+### :store-type :local
+
+```Lisp
+(setup-clipper :store-type :local
+               :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
+               :relative #P"/home/cl-user/common-lisp/clipper/"
+               :prefix "http://localhost:3000/"
+               :clpper-class (find-class 'picture)
+               :format ":ID/FILE-NAME.:EXTENSION")
+
+(let ((object (create-dao 'picture)))
+  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (image-url object))
+
+=> "http://localhsot:3000/images/2/lisplogo_alien_256.png"
+```
+
+- `:image-directory`
+
+```Lisp
+(setup-clipper :store-type :local
+               :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
+               :clpper-class (find-class 'picture)
+               :format ":ID/FILE-NAME.:EXTENSION")
+
+(let ((object (create-dao 'picture)))
+  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (image-url object))
+
+=> "/home/cl-user/common-lisp/clipper/images/2/lisplogo_alien_256.png"
+```
+
+- `:relative`
+
+```Lisp
+(setup-clipper :store-type :local
+               :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
+               :relative #P"/home/cl-user/common-lisp/clipper/"
+               :clpper-class (find-class 'picture)
+               :format ":ID/FILE-NAME.:EXTENSION")
+
+(let ((object (create-dao 'picture)))
+  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (image-url object))
+
+=> "images/2/lisplogo_alien_256.png"
+```
+
+- `:prefix`
+
+```Lisp
+(setup-clipper :store-type :local
+               :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
+               :relative #P"/home/cl-user/common-lisp/clipper/"
+               :prefix "http://localhost:3000/"
+               :clpper-class (find-class 'picture)
+               :format ":ID/FILE-NAME.:EXTENSION")
+
+(let ((object (create-dao 'picture)))
+  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (image-url object))
+
+=> "http://localhost3000/images/2/lisplogo_alien_256.png"
+```
+
+### :store-type :s3
+
+```Lisp
+(setup-clipper :store-type :s3
+               :aws-access-key (asdf::getenv "AWS_ACCESS_KEY")
+               :aws-secret-key (asdf::getenv "AWS_SECRET_KEY")
+               :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
+               :s3-bucket-name "clipper-sample"
+               :clpper-class (find-class 'picture)
+               :format ":ID/FILE-NAME.:EXTENSION")
+
+(let ((object (create-dao 'picture)))
+  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (image-url object))
+
+=> "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/1/lisplogo_alien_256.png"
+```
+
+### :clipper-class
+
+`:clipper-class` can take any class or struct which have slots for `id`, `image-file-name`, `image-content-type`, `image-file-size` and `url`, and each slot can be specified by `setup-clipper`.
+
+```Lisp
+(defclass picture ()
+  ((id :col-type (:integer 11)
+       :primary-key t
+       :auto-increment t
+       :not-null t
+       :initarg :id)
+   (image-file-name :col-type (:varchar 255)
+                    :initarg :image-file-name)
+   (image-content-type :col-type (:varchar 255)
+                       :initarg :image-content-type)
+   (image-file-size :col-type (:integer 11)
+                    :initarg :image-file-size)
+   (url :type string
+        :initarg :url))
+  (:metaclass <dao-table-class>)
+  (:table-name "pictures"))
+
+(setup-clipper :clpper-class (find-class 'picture)
+               :id-slot 'id
+               :url-slot 'url
+               :image-file-name-slot 'image-file-name
+               :image-content-type-slot 'image-content-type
+               :image-file-size-slot 'image-file-size)
+```
+
+### :format
+
+- `:format` can take string with `:KEYWORD` and `:KEYWORD` is declared in `*format-keys*`.
+- Default declared `:KEYWORD` is `:ID`, `:URL`, `:FILE-NAME` and `:EXTENSION`.
+- `*format-keys*` is a plist of `:KEYWORD` and `function` which will be called with `object`.
+- `:FILE-NAME` will return `:image-file-name` without extension.
+
+```Lisp
+(defvar *format-keys*
+  (list :ID #'clip-id
+        :URL #'clip-url
+        :FILE-NAME #'clip-image-file-name-without-extension
+        :EXTENSION #'clip-extension))
+
+(store-format (setup-clipper :format ":ID/:URL/:FILE-NAME.:EXTENSION"))
+
+(make-instance 'picture :id 1 :url "sample-url" :image-file-name "smaple.png")
+
+=> format will be "1/sample-url/sample.png"
+```
+
+## attach-image
+- `attach-image` take `object` and `src`(optional).
+- `attach-image` return `object` with `image-file-name`, `image-content-type`, `image-file-size` and `url`.
+- You have to save `object` returned on yourself.
+
+```Lisp
+(let ((object (make-instance 'picture)))
+  (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png")
+  (attach-image object (drakma:http-request "http://www.lisperati.com/lisplogo_alien_256.png"))
+
+  ;; or
+  (setf (picture-url object) "http://www.lisperati.com/lisplogo_alien_256.png")
+  (attach-image object))
 ```
 
 ## See Also

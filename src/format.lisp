@@ -8,6 +8,7 @@
 
 (syntax:use-syntax :annot)
 
+@export
 (defvar *format-keys*
   (list :ID #'clip-id
         :URL #'clip-url

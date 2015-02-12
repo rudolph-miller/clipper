@@ -11,6 +11,8 @@
                 :setup-clipper
                 :clipper-config-store-type)
   (:import-from :clipper.format
+                :*format-keys*
+                :store-format
                 :retrieve-url)
   (:import-from :clipper.database
                 :attach-image)
@@ -20,6 +22,8 @@
            :<clipper-incomplete-s3-config>
            :setup-clipper
            :*clipper-config*
+           :*format-keys*
+           :store-format
            :attach-image
            :image-url))
 (in-package :clipper)

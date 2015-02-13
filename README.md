@@ -224,10 +224,25 @@ or you can create `:store-type` other than `:local` or `:s3`.
   (attach-image object))
 ```
 
+## attach-image with resize
+
+If you add `:width` and `:height`, `attach-image` resize image with `opticl:fit-image-into`.
+
+```Lisp
+(setup-clipper :store-type :local
+               :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
+               :relative #P"/home/cl-user/common-lisp/clipper/"
+               :prefix "http://localhost:3000/"
+               :clpper-class (find-class 'picture)
+               :format ":ID/FILE-NAME.:EXTENSION"
+               :width 200
+               :height 200)
+```
+
 ## See Also
 
 - [Integral](https://github.com/fukamachi/integral) - Object relational mapper for Common Lisp
-- [cl-gd](https://github.com/edicl/cl-gd) - Interface to the GD graphics library
+- [opticl](https://github.com/slyrus/opticl) -  A library for representing and processing images in Common Lisp
 
 ## Author
 

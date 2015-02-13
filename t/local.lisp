@@ -7,10 +7,12 @@
         :clipper
         :clipper.config
         :clipper.format
-        :clipper.database))
+        :clipper.database
+        :clipper.image
+        :clipper.local))
 (in-package :clipper-test.local)
 
-(plan 4)
+(plan 5)
 
 (connect-to-testdb)
 
@@ -80,5 +82,28 @@
                (clip-id object)
                (clip-image-file-name-without-extension object)
                (clip-extension object))))
+
+(setup-clipper :store-type :local
+               :image-directory *clipper-image-directory*
+               :clipper-class (find-class 'picture)
+               :format ":ID/:FILE-NAME.:EXTENSION"
+               :relative (asdf:system-source-directory :clipper)
+               :prefix "http://localhost:3000/")
+
+(let ((object (create-dao 'picture))
+      (%http-request (symbol-function 'drakma:http-request)))
+
+  (setf (symbol-function 'drakma:http-request)
+        (lambda (url)
+          (declare (ignore url))
+          (with-open-file (input *clipper-image-test-filename*
+                                 :direction :input
+                                 :element-type '(unsigned-byte 8))
+            (read-image-to-vector input))))
+
+  (attach-image object "http://lisp-alien.org/lisp-alien.png")
+  (ok (probe-file (image-pathname object)))
+
+  (setf (symbol-function 'drakma:http-request) %http-request))
 
 (finalize)

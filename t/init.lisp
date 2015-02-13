@@ -8,7 +8,14 @@
 
 @export
 (defvar *clipper-image-directory*
-  (merge-pathnames #P"images" (asdf:system-source-directory :clipper)))
+  (merge-pathnames #P"t/images" (asdf:system-source-directory :clipper)))
+
+@export
+(defvar *clipper-image-test-filename*
+  (merge-pathnames #P"t/images/lisplogo_alien_256.png" (asdf:system-source-directory :clipper)))
+
+@export
+(defvar *clipper-image-test-file-type* :png)
 
 @export
 (defun connect-to-testdb ()

@@ -20,6 +20,7 @@
                  (:test-file "config")
                  (:test-file "format")
                  (:test-file "database")
+                 (:test-file "image")
                  (:test-file "local")
                  (:test-file "s3"))))
 

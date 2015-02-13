@@ -31,14 +31,16 @@
   (image-file-name-slot)
   (image-content-type-slot)
   (image-file-size-slot)
-  (format "/:ID/:FILE-NAME.:EXTENSION"))
+  (format "/:ID/:FILE-NAME.:EXTENSION")
+  (width)
+  (height))
 
 @export
 (defun setup-clipper (&rest initargs &key store-type image-directory relative prefix aws-access-key aws-secret-key
                                        s3-endpoint s3-bucket-name clipper-class id-slot url-slot image-file-name-slot
-                                       image-content-type-slot image-file-size-slot format)
-  (declare (ignore relative prefix aws-access-key aws-secret-key s3-endpoint s3-bucket-name id-slot
-                   url-slot image-file-name-slot image-content-type-slot image-file-size-slot format))
+                                       image-content-type-slot image-file-size-slot format width height)
+  (declare (ignore relative prefix aws-access-key aws-secret-key s3-endpoint s3-bucket-name id-slot url-slot
+                   image-file-name-slot image-content-type-slot image-file-size-slot format width height))
   (when (not store-type) (error '<clipper-incomplete-config> :slot-list (list :store-type)))
   (flet ((raise-error-if-incomplete (require-slots error)
            (let ((slots (loop with result = nil
@@ -49,7 +51,7 @@
                (error error :slot-list slots)))))
     (when clipper-class (setf initargs (complete-slot-of-class initargs)))
     (when image-directory (setf initargs (append (list :image-directory (cl-fad:pathname-as-directory image-directory)) initargs)))
-    (ecase store-type
+    (case store-type
       (:local (raise-error-if-incomplete *local-requrie-list* '<clipper-incomplete-local-config>))
       (:s3 (raise-error-if-incomplete *s3-require-list* '<Clipper-incomplete-s3-config>)))
     (setf *clipper-config* (apply #'make-clipper-config initargs))))

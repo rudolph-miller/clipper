@@ -227,6 +227,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
 ## See Also
 
 - [Integral](https://github.com/fukamachi/integral) - Object relational mapper for Common Lisp
+- [cl-gd](https://github.com/edicl/cl-gd) - Interface to the GD graphics library
 
 ## Author
 

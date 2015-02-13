@@ -4,8 +4,7 @@
         :clipper.config
         :clipper.error
         :annot.class
-        :integral
-        :quri)
+        :integral)
   (:import-from :alexandria
                 :lastcar)
   (:import-from :split-sequence

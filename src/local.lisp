@@ -18,11 +18,6 @@
                        :external-format :utf8)
     (write-image-to-out image out)))
 
-(defun write-image-to-out (image out)
-  (loop for byte across image
-        do (write-byte byte out)
-        finally (return t)))
-
 @export
 (defun image-pathname (object)
   (merge-pathnames (store-format object) (clipper-config-image-directory *clipper-config*)))

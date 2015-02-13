@@ -1,7 +1,16 @@
 (in-package :cl-user)
 (defpackage clipper.image
   (:use :cl
-        :clipper.database))
+        :quri
+        :fast-io
+        :opticl
+        :clipper.config
+        :clipper.database)
+  (:import-from :alexandria
+                :make-keyword
+                :lastcar)
+  (:import-from :split-sequence
+                :split-sequence))
 (in-package :clipper.image)
 
 (syntax:use-syntax :annot)
@@ -33,3 +42,45 @@
   (:method (object image type)
     (declare (ignore image object))
     (error '<clipper-invalid-store-type> :type type)))
+
+(defmethod store-image :around (object image type)
+  (if (or (clipper-config-width *clipper-config*) (clipper-config-height *clipper-config*))
+      (progn
+        (setf image (convert-image image (extension->type (clip-extension object))))
+        (call-next-method))
+      (call-next-method)))
+
+@export
+(defun convert-image (image-vec type)
+  (let* ((pathname (cl-fad:with-output-to-temporary-file (out :direction :io
+                                                             :element-type '(unsigned-byte 8)
+                                                              :template (temporary-file-template type))
+                    (write-image-to-out image-vec out)))
+        (image (read-image-file pathname))
+        (width (clipper-config-width *clipper-config*))
+        (height (clipper-config-height *clipper-config*)))
+    (write-image-file pathname (fit-image-into image :x-max width :y-max height))
+    (with-open-file (input pathname
+                           :direction :input
+                           :element-type '(unsigned-byte 8))
+      (read-image-to-vector input))))
+
+(defun temporary-file-template (type)
+  (format nil "temporary-files:%.~a" (symbol-name type)))
+
+@export
+(defun write-image-to-out (image out)
+  (loop for byte across image
+        do (write-byte byte out)
+        finally (return t)))
+
+@export
+(defun read-image-to-vector (input)
+  (with-fast-output (buffer :vector)
+    (loop for byte = (read-byte input nil nil)
+          while byte
+          do (fast-write-byte byte buffer)
+          finally (return buffer))))
+
+(defun extension->type (extension)
+  (make-keyword (string-upcase extension)))

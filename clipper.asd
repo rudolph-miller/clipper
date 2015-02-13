@@ -24,7 +24,8 @@
                :alexandria
                :zs3
                :cl-fad
-               :cl-gd)
+               :opticl
+               :fast-io)
   :components ((:module "src"
                 :components
                 ((:file "clipper" :depends-on ("database" "image" "s3" "local" "config" "format" "error"))

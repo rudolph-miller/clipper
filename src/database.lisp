@@ -2,7 +2,6 @@
 (defpackage clipper.database
   (:use :cl
         :clipper.config
-        :clipper.error
         :annot.class
         :integral)
   (:import-from :alexandria

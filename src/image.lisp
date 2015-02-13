@@ -4,6 +4,7 @@
         :quri
         :fast-io
         :opticl
+        :clipper.error
         :clipper.config
         :clipper.database)
   (:import-from :alexandria
@@ -19,9 +20,9 @@
 (defgeneric attach-image (object &optional src)
   (:method (object &optional src)
     (unless src
-      (if (clip-url object)
+      (if (and (slot-boundp object (clipper-config-url-slot *clipper-config*)) (clip-url object))
           (setf src (clip-url object))
-          (error "No source specified")))
+          (error '<clipper-no-source-specified> :object object)))
     (etypecase src
       (string
        (let* ((image-file-name (lastcar (split-sequence #\/ (uri-path (uri src)))))

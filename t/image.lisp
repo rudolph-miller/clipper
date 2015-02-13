@@ -3,6 +3,7 @@
   (:use :cl
         :prove
         :integral
+        :clipper.error
         :clipper-test.init
         :clipper
         :clipper.image))
@@ -71,6 +72,8 @@
       (declare (ignore object image type))
       t)
 
+    (is-error (attach-image object)
+              '<clipper-no-source-specified>)
     (is-type (attach-image object "http://lisp-alien.org/lisp-alien.png")
              'picture)
     (ok (slot-value object 'url))

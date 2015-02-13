@@ -23,10 +23,20 @@
   (:report
    (lambda (condition stream)
      (format stream
-             "Incomplete config: ~{~A ~}" (slot-value condition 'slot-list)))))
+             "Incomplete config: ~{~A ~}"
+             (slot-value condition 'slot-list)))))
 
 @export
 (define-condition <clipper-incomplete-local-config> (<clipper-incomplete-config>) ())
 
 @export
 (define-condition <clipper-incomplete-s3-config> (<clipper-incomplete-config>) ())
+
+@export
+(define-condition <clipper-no-source-specified> (<clipper-error>)
+  ((object :initarg :object))
+  (:report
+   (lambda (condition stream)
+     (format stream
+             "Please provide URL or vector data with ~a."
+             (slot-value condition 'object)))))

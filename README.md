@@ -42,7 +42,7 @@ Clipper is a file attachment library.
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
-  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
 => "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/1/lisplogo_alien_256.png"
@@ -55,7 +55,7 @@ Clipper is a file attachment library.
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
-  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
 => "http://localhsot:3000/images/2/lisplogo_alien_256.png"
@@ -86,7 +86,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
-  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
 => "http://localhsot:3000/images/2/lisplogo_alien_256.png"
@@ -101,7 +101,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
-  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
 => "/home/cl-user/common-lisp/clipper/images/2/lisplogo_alien_256.png"
@@ -117,7 +117,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
-  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
 => "images/2/lisplogo_alien_256.png"
@@ -134,7 +134,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
-  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
 => "http://localhost3000/images/2/lisplogo_alien_256.png"
@@ -152,7 +152,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
-  (save-dao (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
 => "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/1/lisplogo_alien_256.png"
@@ -210,14 +210,16 @@ or you can create `:store-type` other than `:local` or `:s3`.
 ```
 
 ## attach-image
-- `attach-image` take `object` and `src`(optional).
+- `attach-image` take `object` and keyword arguments(`:url`, `:image`, `:path-name` and `:file-name`).
 - `attach-image` return `object` with `image-file-name`, `image-content-type`, `image-file-size` and `url`.
-- You have to save `object` returned on yourself.
+- You have to save returned `object` on yourself.
 
 ```Lisp
 (let ((object (make-instance 'picture)))
-  (attach-image object "http://www.lisperati.com/lisplogo_alien_256.png")
-  (attach-image object (drakma:http-request "http://www.lisperati.com/lisplogo_alien_256.png"))
+  (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png")
+  (attach-image object :path-name "/home/lisp-user/image/lisplogo_alien_256.png")
+  (attach-image object :image (drakma:http-request "http://www.lisperati.com/lisplogo_alien_256.png")
+                       :file-name "lisplogo_alien_256.nng")
 
   ;; or
   (setf (picture-url object) "http://www.lisperati.com/lisplogo_alien_256.png")

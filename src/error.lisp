@@ -67,5 +67,5 @@
   (:report
    (lambda (condition stream)
      (format stream
-             "Type of image in (store-image object image type) is not simple-array, but ~a"
+             "Type of image: ~a does not satisfy '(simple-array (unsigned-byte 8))."
              (slot-value condition 'type)))))

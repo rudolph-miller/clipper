@@ -90,20 +90,10 @@
                :relative (asdf:system-source-directory :clipper)
                :prefix "http://localhost:3000/")
 
-(let ((object (create-dao 'picture))
-      (%http-request (symbol-function 'drakma:http-request)))
+(tests-with-http-request
+  (let ((object (create-dao 'picture)))
 
-  (setf (symbol-function 'drakma:http-request)
-        (lambda (url)
-          (declare (ignore url))
-          (with-open-file (input *clipper-image-test-filename*
-                                 :direction :input
-                                 :element-type '(unsigned-byte 8))
-            (read-image-to-vector input))))
-
-  (attach-image object :url "http://lisp-alien.org/lisp-alien.png")
-  (ok (probe-file (image-pathname object)))
-
-  (setf (symbol-function 'drakma:http-request) %http-request))
+    (attach-image object :url "http://lisp-alien.org/lisp-alien.png")
+    (ok (probe-file (image-pathname object)))))
 
 (finalize)

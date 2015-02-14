@@ -1,7 +1,9 @@
 (in-package :cl-user)
 (defpackage clipper-test.init
   (:use :cl
-        :integral))
+        :integral)
+  (:import-from :clipper.image
+                :read-image-to-vector))
 (in-package :clipper-test.init)
 
 (syntax:use-syntax :annot)
@@ -25,3 +27,18 @@
   (connect-toplevel :mysql
                     :database-name "clipper_test"
                     :username "root"))
+
+@export
+(defmacro tests-with-http-request (&body body)
+  `(let ((%http-request (symbol-function 'drakma:http-request)))
+     (setf (symbol-function 'drakma:http-request)
+           (lambda (url)
+             (declare (ignore url))
+             (with-open-file (input *clipper-image-test-file-path-name*
+                                    :direction :input
+                                    :element-type '(unsigned-byte 8))
+               (read-image-to-vector input))))
+
+     ,@body
+
+     (setf (symbol-function 'drakma:http-request) %http-request)))

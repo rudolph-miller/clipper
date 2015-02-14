@@ -17,7 +17,7 @@
 (syntax:use-syntax :annot)
 
 @export
-(defvar *supported-content-types* '(:jpg :jpeg :png))
+(defvar *supported-content-types* '(:jpeg :png :tiff :pbm :pnm :gif))
 
 @export
 (defgeneric attach-image (object &key url image path-name file-name)
@@ -97,4 +97,7 @@
           finally (return buffer))))
 
 (defun extension->type (extension)
-  (make-keyword (string-upcase extension)))
+  (let ((result (make-keyword (string-upcase extension))))
+    (if (eq result :jpg)
+        :jpeg
+        result)))

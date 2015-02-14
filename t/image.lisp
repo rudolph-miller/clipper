@@ -6,9 +6,7 @@
         :clipper.error
         :clipper-test.init
         :clipper
-        :clipper.image)
-  (:import-from :clipper.image
-                :%attach-image))
+        :clipper.image))
 (in-package :clipper-test.image)
 
 (plan 5)
@@ -34,16 +32,7 @@
                "convert-image returned vector."))))
 
 (subtest "attach-image"
-  (let ((%http-request (symbol-function 'drakma:http-request)))
-
-    (setf (symbol-function 'drakma:http-request)
-          (lambda (url)
-            (declare (ignore url))
-            (with-open-file (input *clipper-image-test-file-path-name*
-                                   :direction :input
-                                   :element-type '(unsigned-byte 8))
-              (read-image-to-vector input))))
-
+  (tests-with-http-request
     (connect-to-testdb)
 
     (defclass picture ()
@@ -88,13 +77,6 @@
     (subtest ":url"
       (let ((object (create-dao 'picture)))
 
-        (setf (symbol-function 'drakma:http-request)
-              (lambda (url)
-                (declare (ignore url))
-                (with-open-file (input *clipper-image-test-file-path-name*
-                                       :direction :input
-                                       :element-type '(unsigned-byte 8))
-                  (read-image-to-vector input))))
         (ok (attach-image object :url "http://lisp-alien.org/lisp-alien.png"))
         (ok (slot-value object 'url))
         (ok (slot-value object 'image-file-name))
@@ -116,22 +98,25 @@
                     '<clipper-incomplete-for-attach-image>)
           (ok (attach-image object :image image :file-name *clipper-image-test-file-name*))
           (ok (slot-value object 'image-file-name))
-          (ok (slot-value object 'image-content-type)))))
-
-    (setf (symbol-function 'drakma:http-request) %http-request)))
+          (ok (slot-value object 'image-content-type)))))))
 
 (subtest "supported-content-type"
-  (let ((object (create-dao 'picture)))
-    (%attach-image object "dummy-image" "dummy-file-name" :jpg)
-    (is (slot-value object 'image-content-type)
-        "image/jpg")
+  (tests-with-http-request
+    (let ((object (create-dao 'picture)))
+      (is-error (attach-image object :url "dummy-image.unsuppoted-content-type")
+                '<clipper-unsupported-content-type>)
+      
+      (defun supported-conent-type-test (extension expected-content-type)
+        (attach-image object :url (format nil "dummy-image.~a" extension))
+        (is (slot-value object 'image-content-type)
+            expected-content-type))
 
-    (%attach-image object "dummy-image" "dummy-file-name" :jpeg)
-    (is (slot-value object 'image-content-type)
-        "image/jpeg")
-
-    (%attach-image object "dummy-image" "dummy-file-name" :png)
-    (is (slot-value object 'image-content-type)
-        "image/png")))
+      (supported-conent-type-test "jpeg" "image/jpeg")
+      (supported-conent-type-test "jpg" "image/jpeg")
+      (supported-conent-type-test "png" "image/png")
+      (supported-conent-type-test "tiff" "image/tiff")
+      (supported-conent-type-test "pbm" "image/pbm")
+      (supported-conent-type-test "pnm" "image/pnm")
+      (supported-conent-type-test "gif" "image/gif"))))
 
 (finalize)

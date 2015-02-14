@@ -60,3 +60,12 @@
              "attach-image with ~a needs~{ ~a~}"
              (slot-value condition 'type)
              (slot-value condition 'args)))))
+
+@export
+(define-condition <clipper-image-type-error> (<clipper-error>)
+  ((type :initarg :type))
+  (:report
+   (lambda (condition stream)
+     (format stream
+             "Type of image in (store-image object image type) is not simple-array, but ~a"
+             (slot-value condition 'type)))))

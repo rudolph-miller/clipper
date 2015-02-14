@@ -60,7 +60,10 @@
                    :format ":ID/:FILE-NAME.:EXTENSION")
 
     (defmethod store-image (object image (type (eql :sample)))
-      (declare (ignore object image type)) t)
+      (declare (ignore type)) object)
+
+    (is-error (store-image "dummy-object" "dumm-image" :sample)
+              '<clipper-image-type-error>)
 
     (subtest "no source"
       (let ((object (create-dao 'picture)))

@@ -60,6 +60,8 @@
     (error '<clipper-invalid-store-type> :type type)))
 
 (defmethod store-image :around (object image type)
+  (unless (typep image '(simple-array (unsigned-byte 8)))
+    (error '<clipper-image-type-error> :type (type-of image)))
   (if (or (clipper-config-width *clipper-config*) (clipper-config-height *clipper-config*))
       (progn
         (setf image (convert-image image (extension->type (clip-extension object))))

@@ -28,10 +28,12 @@
                   (image (drakma:http-request url)))
              (setf (clip-url object) url)
              (%attach-image object image file-name content-type)))
-      (path-name (let* ((file-name (or file-name (lastcar (split-sequence #\/ (enough-namestring path-name)))))
+      (path-name (with-open-file (input path-name :direction :input
+                                                  :element-type '(unsigned-byte 8))
+                 (let* ((file-name (or file-name (lastcar (split-sequence #\/ (enough-namestring path-name)))))
                         (content-type (extension->type (get-extension file-name)))
-                        (image (read-image-file path-name)))
-                   (%attach-image object image file-name content-type)))
+                        (image (read-image-to-vector input)))
+                   (%attach-image object image file-name content-type))))
       (image (unless file-name
                (error '<clipper-incomplete-for-attach-image> :type :image :args '(:file-name)))
              (let ((content-type (extension->type (get-extension file-name))))

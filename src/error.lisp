@@ -40,3 +40,23 @@
      (format stream
              "Please provide URL or vector data with ~a."
              (slot-value condition 'object)))))
+
+@export
+(define-condition <clipper-unsupported-content-type> (<clipper-error>)
+  ((content-type :initarg :content-type))
+  (:report
+   (lambda (condition stream)
+     (format stream
+             "Unsupported content-type : ~a."
+             (slot-value condition 'content-type)))))
+
+@export
+(define-condition <clipper-incomplete-for-attach-image> (<clipper-error>)
+  ((type :initarg :type)
+   (args :initarg :args))
+  (:report
+   (lambda (condition stream)
+     (format stream
+             "attach-image with ~a needs~{ ~a~}"
+             (slot-value condition 'type)
+             (slot-value condition 'args)))))

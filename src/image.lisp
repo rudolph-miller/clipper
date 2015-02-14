@@ -17,25 +17,38 @@
 (syntax:use-syntax :annot)
 
 @export
-(defgeneric attach-image (object &optional src)
-  (:method (object &optional src)
-    (unless src
-      (if (and (slot-boundp object (clipper-config-url-slot *clipper-config*)) (clip-url object))
-          (setf src (clip-url object))
-          (error '<clipper-no-source-specified> :object object)))
-    (etypecase src
-      (string
-       (let* ((image-file-name (lastcar (split-sequence #\/ (uri-path (uri src)))))
-              (image-content-type (concatenate 'string "image/" (lastcar (split-sequence #\. image-file-name))))
-              (image (drakma:http-request src)))
-         (setf (clip-url object) src)
-         (setf (clip-image-file-name object) image-file-name)
-         (setf (clip-image-content-type object) image-content-type)
-         (store-image object image (clipper-config-store-type *clipper-config*))))
-      (simple-vector (error "There is not method of attach-image with raw image.")))))
+(defvar *supported-content-types* '(:jpg :jpeg :png))
 
-(defmethod attach-image :around (object &optional src)
-  (declare (ignore src))
+@export
+(defgeneric attach-image (object &key url image path-name file-name)
+  (:method (object &key url image path-name file-name)
+    (cond
+      (url (let* ((file-name (or file-name (lastcar (split-sequence #\/ (uri-path (uri url))))))
+                  (content-type (extension->type (get-extension file-name)))
+                  (image (drakma:http-request url)))
+             (setf (clip-url object) url)
+             (%attach-image object image file-name content-type)))
+      (path-name (let* ((file-name (or file-name (lastcar (split-sequence #\/ (enough-namestring path-name)))))
+                        (content-type (extension->type (get-extension file-name)))
+                        (image (read-image-file path-name)))
+                   (%attach-image object image file-name content-type)))
+      (image (unless file-name
+               (error '<clipper-incomplete-for-attach-image> :type :image :args '(:file-name)))
+             (let ((content-type (extension->type (get-extension file-name))))
+               (%attach-image object image file-name content-type)))
+      (t (if (clip-url object)
+             (attach-image object :url (clip-url object) :file-name file-name)
+             (error '<clipper-no-source-specified> :object object))))))
+
+(defun %attach-image (object image file-name content-type)
+  (unless (find content-type *supported-content-types*)
+    (error '<clipper-unsupported-content-type> :content-type content-type))
+  (setf (clip-image-file-name object) file-name)
+  (setf (clip-image-content-type object) (format nil "image/~(~a~)" content-type))
+  (store-image object image (clipper-config-store-type *clipper-config*)))
+
+(defmethod attach-image :around (object &key url image path-name file-name)
+  (declare (ignore url image path-name file-name))
   (when (call-next-method) object))
 
 @export
@@ -54,12 +67,12 @@
 @export
 (defun convert-image (image-vec type)
   (let* ((pathname (cl-fad:with-output-to-temporary-file (out :direction :io
-                                                             :element-type '(unsigned-byte 8)
+                                                              :element-type '(unsigned-byte 8)
                                                               :template (temporary-file-template type))
-                    (write-image-to-out image-vec out)))
-        (image (read-image-file pathname))
-        (width (clipper-config-width *clipper-config*))
-        (height (clipper-config-height *clipper-config*)))
+                     (write-image-to-out image-vec out)))
+         (image (read-image-file pathname))
+         (width (clipper-config-width *clipper-config*))
+         (height (clipper-config-height *clipper-config*)))
     (write-image-file pathname (fit-image-into image :x-max width :y-max height))
     (with-open-file (input pathname
                            :direction :input

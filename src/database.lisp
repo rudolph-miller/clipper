@@ -40,42 +40,53 @@
 
 @export
 (defun clip-id (clip)
-  (slot-value clip (or (clipper-config-id-slot *clipper-config*) 'id)))
+  (let ((id-slot (or (clipper-config-id-slot *clipper-config*) 'id)))
+    (when (slot-boundp clip id-slot)
+      (slot-value clip (or (clipper-config-id-slot *clipper-config*) 'id)))))
 
 @export
 (defun clip-url (clip)
-  (slot-value clip (or (clipper-config-url-slot *clipper-config*) 'url)))
+  (let ((url-slot (or (clipper-config-url-slot *clipper-config*) 'url)))
+    (when (slot-boundp clip url-slot)
+      (slot-value clip url-slot))))
 
 @export
 (defun (setf clip-url) (url clip)
-  (setf (slot-value clip (or (clipper-config-url-slot *clipper-config*) 'url)) url))
+  (let ((url-slot (or (clipper-config-url-slot *clipper-config*) 'url)))
+    (setf (slot-value clip url-slot) url)))
 
 @export
 (defun clip-image-file-name (clip)
-  (slot-value clip (or (clipper-config-image-file-name-slot *clipper-config*) 'image-file-name)))
+  (let ((image-file-name-slot (or (clipper-config-image-file-name-slot *clipper-config*) 'image-file-name)))
+    (when (slot-boundp clip image-file-name-slot)
+      (slot-value clip image-file-name-slot))))
 
 @export
 (defun (setf clip-image-file-name) (image-file-name clip)
-  (setf (slot-value clip (or (clipper-config-image-file-name-slot *clipper-config*) 'image-file-name))
-        image-file-name))
+  (let ((image-file-name-slot (or (clipper-config-image-file-name-slot *clipper-config*) 'image-file-name)))
+    (setf (slot-value clip image-file-name-slot) image-file-name)))
 
 @export
 (defun clip-image-content-type (clip)
-  (slot-value clip (or (clipper-config-image-content-type-slot *clipper-config*) 'image-content-type)))
+  (let ((image-content-type-slot (or (clipper-config-image-content-type-slot *clipper-config*) 'image-content-type)))
+    (when (slot-boundp clip image-content-type-slot)
+      (slot-value clip image-content-type-slot))))
 
 @export
 (defun (setf clip-image-content-type) (image-content-type clip)
-  (setf (slot-value clip (or (clipper-config-image-content-type-slot *clipper-config*) 'image-content-type))
-        image-content-type))
+  (let ((image-content-type-slot (or (clipper-config-image-content-type-slot *clipper-config*) 'image-content-type)))
+    (setf (slot-value clip image-content-type-slot) image-content-type)))
 
 @export
 (defun clip-image-file-size (clip)
-  (slot-value clip (or (clipper-config-image-file-size-slot *clipper-config*) 'image-file-size)))
+  (let ((image-file-size-slot (or (clipper-config-image-file-size-slot *clipper-config*) 'image-file-size)))
+    (when (slot-boundp clip image-file-size-slot)
+      (slot-value clip image-file-size-slot))))
 
 @export
 (defun (setf clip-image-file-size) (image-file-size clip)
-  (setf (slot-value clip (or (clipper-config-image-file-size-slot *clipper-config*) 'image-file-size))
-        image-file-size))
+  (let ((image-file-size-slot (or (clipper-config-image-file-size-slot *clipper-config*) 'image-file-size)))
+    (setf (slot-value clip image-file-size-slot) image-file-size)))
 
 @export
 (defun clip-image-file-name-without-extension (clip)
@@ -84,4 +95,8 @@
 
 @export
 (defun clip-extension (clip)
-  (lastcar (split-sequence #\. (clip-image-file-name clip))))
+  (get-extension (clip-image-file-name clip)))
+
+@export
+(defun get-extension (file-name)
+  (lastcar (split-sequence #\. file-name)))

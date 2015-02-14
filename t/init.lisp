@@ -11,15 +11,17 @@
   (merge-pathnames #P"t/images" (asdf:system-source-directory :clipper)))
 
 @export
-(defvar *clipper-image-test-filename*
+(defvar *clipper-image-test-file-path-name*
   (merge-pathnames #P"t/images/lisplogo_alien_256.png" (asdf:system-source-directory :clipper)))
 
 @export
 (defvar *clipper-image-test-file-type* :png)
 
 @export
+(defvar *clipper-image-test-file-name* "splogo_alien_256.png")
+
+@export
 (defun connect-to-testdb ()
-  (disconnect-toplevel)
   (connect-toplevel :mysql
                     :database-name "clipper_test"
                     :username "root"))

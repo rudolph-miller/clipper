@@ -101,7 +101,7 @@
                                  :element-type '(unsigned-byte 8))
             (read-image-to-vector input))))
 
-  (attach-image object "http://lisp-alien.org/lisp-alien.png")
+  (attach-image object :url "http://lisp-alien.org/lisp-alien.png")
   (ok (probe-file (image-pathname object)))
 
   (setf (symbol-function 'drakma:http-request) %http-request))

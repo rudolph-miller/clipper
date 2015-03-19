@@ -43,20 +43,20 @@
                :format ":ID/:FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture :image-file-name "lisp-alien.png"
-                                :image-content-type "image/png"
-                                :image-file-size 100
-                                :url "http://lisp-alien.org/lisp-alien.png")))
-    (is (store-format object)
-        (format nil "~a/~a.~a"
-                (clip-id object)
-                (clip-image-file-name-without-extension object)
-                (clip-extension object)))
-    (is (image-url object)
-        (format nil "https://~a/~a/~a/~a.~a"
-                (clipper-config-s3-endpoint *clipper-config*)
-                (clipper-config-s3-bucket-name *clipper-config*)
-                (clip-id object)
-                (clip-image-file-name-without-extension object)
-                (clip-extension object))))
+                                   :image-content-type "image/png"
+                                   :image-file-size 100
+                                   :url "http://lisp-alien.org/lisp-alien.png")))
+  (is (store-format object)
+      (format nil "~a/~a.~a"
+              (clip-id object)
+              (clip-image-file-name-without-extension object)
+              (clip-extension object)))
+  (is (image-url object)
+      (format nil "https://~a/~a/~a/~a.~a"
+              (clipper-config-s3-endpoint *clipper-config*)
+              (clipper-config-s3-bucket-name *clipper-config*)
+              (clip-id object)
+              (clip-image-file-name-without-extension object)
+              (clip-extension object))))
 
 (finalize)

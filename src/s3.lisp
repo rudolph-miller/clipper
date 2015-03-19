@@ -23,7 +23,8 @@
 
 @export
 (defun upload (object key)
-  (put-object object (clipper-config-s3-bucket-name *clipper-config*) key))
+  (let ((bucket (clipper-config-s3-bucket-name *clipper-config*)))
+    (put-object object bucket key :public t)))
 
 (defmethod store-image (object image (type (eql :s3)))
   (upload image (store-format object)))

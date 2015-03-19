@@ -149,13 +149,13 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
                :s3-bucket-name "clipper-sample"
                :clpper-class (find-class 'picture)
-               :format ":ID/FILE-NAME.:EXTENSION")
+               :format "images:ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
   (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
   (image-url object))
 
-=> "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/1/lisplogo_alien_256.png"
+=> "https://s3-ap-northeast-1.amazonaws.com/clipper-sample/images/1/lisplogo_alien_256.png"
 ```
 
 ### :clipper-class

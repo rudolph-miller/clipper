@@ -17,7 +17,7 @@
   :author "Rudolph-Miller"
   :license "MIT"
   :depends-on (:cl-syntax-annot
-               :integral
+               :closer-mop
                :drakma
                :quri
                :split-sequence

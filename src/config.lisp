@@ -41,7 +41,6 @@
                                        image-content-type-slot image-file-size-slot format width height)
   (declare (ignore relative prefix aws-access-key aws-secret-key s3-endpoint s3-bucket-name id-slot url-slot
                    image-file-name-slot image-content-type-slot image-file-size-slot format width height))
-  (when (not store-type) (error '<clipper-incomplete-config> :slot-list (list :store-type)))
   (flet ((raise-error-if-incomplete (require-slots error)
            (let ((slots (loop with result = nil
                               for slot in require-slots
@@ -49,7 +48,13 @@
                                 finally (return result))))
              (when (> (length slots) 0)
                (error error :slot-list slots)))))
-    (when clipper-class (setf initargs (complete-slot-of-class initargs)))
+    (unless store-type (error '<clipper-incomplete-config> :slot-list (list :store-type)))
+    (if clipper-class
+        (progn
+          (when (symbolp clipper-class)
+            (setf (getf initargs :clipper-class) (find-class clipper-class)))
+          (setf initargs (complete-slot-of-class initargs)))
+        (error '<clipper-incomplete-config> :slot-list (list :clipper-class)))
     (when image-directory (setf initargs (append (list :image-directory (cl-fad:pathname-as-directory image-directory)) initargs)))
     (case store-type
       (:local (raise-error-if-incomplete *local-requrie-list* '<clipper-incomplete-local-config>))

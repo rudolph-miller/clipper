@@ -10,41 +10,49 @@
 
 (plan 3)
 
+(defstruct clip
+  id url image-file-name image-content-type image-file-size)
+
 (subtest "store-type :local"
-  (is-error (setup-clipper :store-type :local)
+  (is-error (setup-clipper :store-type :local :clipper-class 'clip)
             '<clipper-incomplete-local-config>)
-  (ok (setup-clipper :store-type :local :image-directory *clipper-image-directory*))
-  (is (clipper-config-image-directory (setup-clipper :store-type :local :image-directory #P"sample"))
+  (ok (setup-clipper :store-type :local :image-directory *clipper-image-directory* :clipper-class 'clip))
+  (is (clipper-config-image-directory (setup-clipper :store-type :local :image-directory #P"sample" :clipper-class 'clip))
       #P"sample/"))
 
 (subtest "store-type :s3"
-  (is-error (setup-clipper :store-type :s3)
+  (is-error (setup-clipper :store-type :s3 :clipper-class 'clip)
             '<clipper-incomplete-s3-config>)
   (is-error (setup-clipper :store-type :s3
                            :aws-secret-key "sample-secret-key"
                            :s3-endpoint "sample-endpoint"
-                           :s3-bucket-name "sample-bucket-name")
+                           :s3-bucket-name "sample-bucket-name"
+                           :clipper-class 'clip)
             '<clipper-incomplete-s3-config>)
   (is-error (setup-clipper :store-type :s3
                            :aws-access-key "sample-access-key"
                            :s3-endpoint "sample-endpoint"
-                           :s3-bucket-name "sample-bucket-name")
+                           :s3-bucket-name "sample-bucket-name"
+                           :clipper-class 'clip)
             '<clipper-incomplete-s3-config>)
   (is-error (setup-clipper :store-type :s3
                            :aws-access-key "sample-access-key"
                            :aws-secret-key "sample-secret-key"
-                           :s3-bucket-name "sample-bucket-name")
+                           :s3-bucket-name "sample-bucket-name"
+                           :clipper-class 'clip)
             '<clipper-incomplete-s3-config>)
   (is-error (setup-clipper :store-type :s3
                            :aws-access-key "sample-access-key"
                            :aws-secret-key "sample-secret-key"
-                           :s3-endpoint "sample-endpoint")
+                           :s3-endpoint "sample-endpoint"
+                           :clipper-class 'clip)
             '<clipper-incomplete-s3-config>)
   (ok (setup-clipper :store-type :s3
                      :aws-access-key "sample-access-key"
                      :aws-secret-key "sample-secret-key"
                      :s3-endpoint "sample-endpoint"
-                     :s3-bucket-name "sample-bucket-name")))
+                     :s3-bucket-name "sample-bucket-name"
+                     :clipper-class 'clip)))
 
 (subtest "complete class"
   (defclass picture ()

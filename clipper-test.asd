@@ -12,6 +12,7 @@
   :author "Rudolph-Miller"
   :license "MIT"
   :depends-on (:clipper
+               :integral
                :prove)
   :components ((:module "t"
                 :components

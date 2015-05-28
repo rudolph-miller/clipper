@@ -11,6 +11,7 @@
 (defsystem clipper-test
   :author "Rudolph-Miller"
   :license "MIT"
+  :description "Tests of Clipper."
   :depends-on (:clipper
                :integral
                :prove)

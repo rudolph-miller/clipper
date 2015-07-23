@@ -30,9 +30,9 @@
 
 @export
 (defmacro tests-with-http-request (&body body)
-  `(let ((%http-request (symbol-function 'drakma:http-request)))
-     (setf (symbol-function 'drakma:http-request)
-           (lambda (url)
+  `(let ((%http-request (symbol-function 'dex:get)))
+     (setf (symbol-function 'dex:get)
+           (lambda (url &key &allow-other-keys)
              (declare (ignore url))
              (with-open-file (input *clipper-image-test-file-path-name*
                                     :direction :input
@@ -41,4 +41,4 @@
 
      ,@body
 
-     (setf (symbol-function 'drakma:http-request) %http-request)))
+     (setf (symbol-function 'dex:get) %http-request)))

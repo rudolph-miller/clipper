@@ -25,7 +25,7 @@
     (cond
       (url (let* ((file-name (or file-name (lastcar (split-sequence #\/ (uri-path (uri url))))))
                   (content-type (extension->type (get-extension file-name)))
-                  (image (drakma:http-request url)))
+                  (image (dex:get url :force-binary t)))
              (setf (clip-url object) url)
              (%attach-image object image file-name content-type)))
       (path-name (with-open-file (input path-name :direction :input

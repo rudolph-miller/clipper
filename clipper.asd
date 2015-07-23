@@ -18,7 +18,7 @@
   :license "MIT"
   :depends-on (:cl-syntax-annot
                :closer-mop
-               :drakma
+               :dexador
                :quri
                :split-sequence
                :alexandria

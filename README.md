@@ -1,6 +1,5 @@
 # Clipper
-
-[![Build Status](https://travis-ci.org/Rudolph-Miller/clipper.svg)](https://travis-ci.org/Rudolph-Miller/clipper)
+[![Build Status](https://circleci.com/gh/Rudolph-Miller/clipper.svg?style=shield)](https://circleci.com/gh/Rudolph-Miller/clipper)
 
 Clipper is a file attachment library.
 

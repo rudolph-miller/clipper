@@ -1,6 +1,7 @@
 (in-package :cl-user)
 (defpackage clipper.format
   (:use :cl
+        :annot.doc
         :clipper.config
         :clipper.database)
   (:export :*format-keys*))
@@ -8,6 +9,8 @@
 
 (syntax:use-syntax :annot)
 
+@doc
+"List of functions used for #'store-format."
 @export
 (defvar *format-keys*
   (list :ID #'clip-id
@@ -15,6 +18,8 @@
         :FILE-NAME #'clip-image-file-name-without-extension
         :EXTENSION #'clip-extension))
 
+@doc
+"Returns formatted id of object."
 @export
 (defun store-format (object)
   (loop with format = (clipper-config-format *clipper-config*)

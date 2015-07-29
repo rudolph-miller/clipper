@@ -1,6 +1,7 @@
 (in-package :cl-user)
 (defpackage clipper
-  (:use :cl)
+  (:use :cl
+        :annot.doc)
   (:import-from :clipper.error
                 :<clipper-invalid-store-type>
                 :<clipper-incomplete-config>
@@ -28,5 +29,9 @@
            :image-url))
 (in-package :clipper)
 
+(syntax:use-syntax :annot)
+
+@doc
+"Return URL for object."
 (defun image-url (object)
   (retrieve-url object (clipper-config-store-type *clipper-config*)))

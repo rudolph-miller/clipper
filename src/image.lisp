@@ -1,6 +1,7 @@
 (in-package :cl-user)
 (defpackage clipper.image
   (:use :cl
+        :annot.doc
         :quri
         :fast-io
         :opticl
@@ -19,6 +20,8 @@
 @export
 (defvar *supported-content-types* '(:jpeg :png :tiff :pbm :pnm :gif))
 
+@doc
+"Attach the image to the object."
 @export
 (defgeneric attach-image (object &key url image path-name file-name)
   (:method (object &key url image path-name file-name)

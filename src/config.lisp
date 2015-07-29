@@ -1,6 +1,7 @@
 (in-package :cl-user)
 (defpackage clipper.config
   (:use :cl
+        :annot.doc
         :clipper.error
         :annot.class)
   (:export :*clipper-config*))
@@ -11,6 +12,8 @@
 (defvar *s3-require-list* (list :aws-access-key :aws-secret-key :s3-endpoint :s3-bucket-name))
 (defvar *local-requrie-list* (list :image-directory))
 
+@doc
+"Global variable for config object."
 @export
 (defvar *clipper-config* nil)
 
@@ -35,6 +38,8 @@
   (width)
   (height))
 
+@doc
+"Setup clipper. You must call this before use clipper."
 @export
 (defun setup-clipper (&rest initargs &key store-type image-directory relative prefix aws-access-key aws-secret-key
                                        s3-endpoint s3-bucket-name clipper-class id-slot url-slot image-file-name-slot

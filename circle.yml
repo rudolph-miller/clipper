@@ -2,6 +2,12 @@ general:
   branches:
     ignore:
       - gh-pages
+  services:
+    - mysql
+
+database:
+  post:
+    - mysql -uroot -e 'CREATE DATABASE `clipper_test`';
 
 machine:
   environment:

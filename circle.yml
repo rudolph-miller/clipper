@@ -40,7 +40,7 @@ test:
   override:
     - ros run -- --version
     - run-prove *-test.asd
-    - ros -s cl-annot-prove -e '(or (annot.prove:run-system-tests :elb-log) (uiop:quit -1))'
+    - ros -s cl-annot-prove -e '(or (annot.prove:run-system-tests :clipper) (uiop:quit -1))'
 
 deployment:
   deployment:

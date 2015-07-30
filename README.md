@@ -1,5 +1,6 @@
 # Clipper
 [![Build Status](https://circleci.com/gh/Rudolph-Miller/clipper.svg?style=shield)](https://circleci.com/gh/Rudolph-Miller/clipper)
+[![Quicklisp dist](http://quickdocs.org/badge/clipper.svg)](http://quickdocs.org/clipper/)
 
 Clipper is a file attachment library.
 

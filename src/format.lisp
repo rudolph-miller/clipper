@@ -19,7 +19,7 @@
         :EXTENSION #'clip-extension))
 
 @doc
-"Returns formatted id of object."
+"Return formatted id of object."
 @export
 (defun store-format (object)
   (loop with format = (clipper-config-format *clipper-config*)

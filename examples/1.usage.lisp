@@ -30,7 +30,7 @@
                :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
                :s3-bucket-name "clipper-sample"
                :clipper-class (find-class 'picture)
-               :format ":ID/FILE-NAME.:EXTENSION")
+               :format ":ID/:FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
   (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))
@@ -43,7 +43,7 @@
                :relative #P"/home/cl-user/common-lisp/clipper/"
                :prefix "http://localhost:3000/"
                :clipper-class (find-class 'picture)
-               :format ":ID/FILE-NAME.:EXTENSION")
+               :format ":ID/:FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
   (save-dao (attach-image object :url "http://www.lisperati.com/lisplogo_alien_256.png"))

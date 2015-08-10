@@ -38,7 +38,7 @@ Clipper is a file attachment library.
                :aws-secret-key (asdf::getenv "AWS_SECRET_KEY")
                :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
                :s3-bucket-name "clipper-sample"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -51,7 +51,7 @@ Clipper is a file attachment library.
                :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
                :relative #P"/home/cl-user/common-lisp/clipper/"
                :prefix "http://localhost:3000/"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -82,7 +82,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
                :relative #P"/home/cl-user/common-lisp/clipper/"
                :prefix "http://localhost:3000/"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -97,7 +97,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
 ```Lisp
 (setup-clipper :store-type :local
                :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -113,7 +113,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
 (setup-clipper :store-type :local
                :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
                :relative #P"/home/cl-user/common-lisp/clipper/"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -130,7 +130,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
                :relative #P"/home/cl-user/common-lisp/clipper/"
                :prefix "http://localhost:3000/"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -148,7 +148,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
                :aws-secret-key (asdf::getenv "AWS_SECRET_KEY")
                :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
                :s3-bucket-name "clipper-sample"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format "images:ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -180,7 +180,7 @@ or you can create `:store-type` other than `:local` or `:s3`.
   (:metaclass <dao-table-class>)
   (:table-name "pictures"))
 
-(setup-clipper :clpper-class (find-class 'picture)
+(setup-clipper :clipper-class (find-class 'picture)
                :id-slot 'id
                :url-slot 'url
                :image-file-name-slot 'image-file-name
@@ -235,7 +235,7 @@ If you add `:width` and `:height`, `attach-image` resize image with `opticl:fit-
                :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
                :relative #P"/home/cl-user/common-lisp/clipper/"
                :prefix "http://localhost:3000/"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION"
                :width 200
                :height 200)

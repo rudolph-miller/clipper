@@ -29,7 +29,7 @@
                :aws-secret-key (asdf::getenv "AWS_SECRET_KEY")
                :s3-endpoint "s3-ap-northeast-1.amazonaws.com"
                :s3-bucket-name "clipper-sample"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))
@@ -42,7 +42,7 @@
                :image-directory #P"/home/cl-user/common-lisp/clipper/images/"
                :relative #P"/home/cl-user/common-lisp/clipper/"
                :prefix "http://localhost:3000/"
-               :clpper-class (find-class 'picture)
+               :clipper-class (find-class 'picture)
                :format ":ID/FILE-NAME.:EXTENSION")
 
 (let ((object (create-dao 'picture)))

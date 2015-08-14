@@ -4,6 +4,8 @@
 
 Clipper is a file attachment library.
 
+[Introduction to Clipper](http://blog.rudolph-miller.com/2015/08/10/introduction-to-clipper/)
+
 ## Usage
 
 ```Lisp

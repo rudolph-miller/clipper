@@ -1,0 +1,185 @@
+@begin(section)
+@title(Overview)
+@link[uri=https://circleci.com/gh/Rudolph-Miller/clipper](@image[src="https://circleci.com/gh/Rudolph-Miller/clipper.svg"]())
+
+@link[uri=https://coveralls.io/repos/Rudolph-Miller/clipper](@image[src="https://coveralls.io/repos/Rudolph-Miller/clipper/badge.svg"]())
+@link[uri=http://quickdocs.org/clipper/](@image[src="http://quickdocs.org/badge/clipper.svg"]())
+@begin(section)
+@title(Description)
+File attachment library.
+@end(section)
+@begin(section)
+@title(Examples)
+@begin(section)
+@title(1. usage)
+@code[lang=lisp](@include[path=../examples/1.usage.lisp]())
+@end(section)
+@end(section)
+@begin(section)
+@title(Author)
+@b(Rudolph-Miller)
+@end(section)
+@begin(section)
+@title(Licence)
+MIT
+@end(section)
+@end(section)
+; compiling file "/home/ubuntu/clipper/src/error.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER.ERROR ...)
+; compiling (IN-PACKAGE :CLIPPER.ERROR)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/error-TMP.fasl written
+; compilation finished in 0:00:00.029
+; compiling file "/home/ubuntu/clipper/src/config.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER.CONFIG ...)
+; compiling (IN-PACKAGE :CLIPPER.CONFIG)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (DEFVAR *S3-REQUIRE-LIST* ...)
+; compiling (DEFVAR *LOCAL-REQURIE-LIST* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+; compiling (DEFUN COMPLETE-SLOT-OF-CLASS ...)
+; compiling (DEFUN FIND-SLOT-BY-THE-NAME ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/config-TMP.fasl written
+; compilation finished in 0:00:00.063
+; compiling file "/home/ubuntu/clipper/src/database.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER.DATABASE ...)
+; compiling (IN-PACKAGE :CLIPPER.DATABASE)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/database-TMP.fasl written
+; compilation finished in 0:00:00.018
+; compiling file "/home/ubuntu/clipper/src/image.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER.IMAGE ...)
+; compiling (IN-PACKAGE :CLIPPER.IMAGE)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+; compiling (DEFUN %ATTACH-IMAGE ...)
+; compiling (DEFMETHOD ATTACH-IMAGE ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFMETHOD STORE-IMAGE ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFUN TEMPORARY-FILE-TEMPLATE ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFUN EXTENSION->TYPE ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/image-TMP.fasl written
+; compilation finished in 0:00:00.053
+; compiling file "/home/ubuntu/clipper/src/format.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER.FORMAT ...)
+; compiling (IN-PACKAGE :CLIPPER.FORMAT)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/format-TMP.fasl written
+; compilation finished in 0:00:00.006
+; compiling file "/home/ubuntu/clipper/src/s3.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER.S3 ...)
+; compiling (IN-PACKAGE :CLIPPER.S3)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (DEFCLASS ENVIRONMENT-CREDENTIALS ...)
+; compiling (SETF *CREDENTIALS* ...)
+; compiling (DEFMETHOD ACCESS-KEY ...)
+; compiling (DEFMETHOD SECRET-KEY ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFMETHOD STORE-IMAGE ...)
+; compiling (DEFMETHOD RETRIEVE-URL ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/s3-TMP.fasl written
+; compilation finished in 0:00:00.021
+; compiling file "/home/ubuntu/clipper/src/local.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER.LOCAL ...)
+; compiling (IN-PACKAGE :CLIPPER.LOCAL)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (DEFMETHOD STORE-IMAGE ...)
+; compiling (CL-ANNOT.CORE:%ANNOTATION CL-ANNOT.STD:EXPORT* ...)
+; compiling (DEFMETHOD RETRIEVE-URL ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/local-TMP.fasl written
+; compilation finished in 0:00:00.012
+; compiling file "/home/ubuntu/clipper/src/clipper.lisp" (written 21 AUG 2015 02:07:06 AM):
+; compiling (IN-PACKAGE :CL-USER)
+; compiling (DEFPACKAGE CLIPPER ...)
+; compiling (IN-PACKAGE :CLIPPER)
+; compiling (CL-SYNTAX:USE-SYNTAX :ANNOT)
+; compiling (CL-ANNOT.CORE:%ANNOTATION DOC ...)
+
+; /home/ubuntu/.cache/common-lisp/sbcl-1.2.14-linux-x64/1.2.14/home/ubuntu/clipper/src/clipper-TMP.fasl written
+; compilation finished in 0:00:00.003
+@begin(section)
+@title(Globals)
+@cl:with-package[name="clipper.config"](
+@cl:doc(variable *clipper-config*)
+)
+@cl:with-package[name="clipper.format"](
+@cl:doc(variable *format-keys*)
+)
+@end(section)
+@begin(section)
+@title(Functions)
+@cl:with-package[name="clipper"](
+@cl:doc(function image-url)
+)
+@cl:with-package[name="clipper.config"](
+@cl:doc(function setup-clipper)
+)
+@cl:with-package[name="clipper.format"](
+@cl:doc(function store-format)
+)
+@end(section)
+@begin(section)
+@title(Gereric Functions)
+@cl:with-package[name="clipper.image"](
+@cl:doc(generic attach-image)
+)
+@end(section)
+@begin(section)
+@title(Conditions)
+@cl:with-package[name="clipper.error"](
+@cl:doc(condition <clipper-incomplete-config>)
+)
+@cl:with-package[name="clipper.error"](
+@cl:doc(condition <clipper-incomplete-local-config>)
+)
+@cl:with-package[name="clipper.error"](
+@cl:doc(condition <clipper-incomplete-s3-config>)
+)
+@cl:with-package[name="clipper.error"](
+@cl:doc(condition <clipper-invalid-store-type>)
+)
+@end(section)
